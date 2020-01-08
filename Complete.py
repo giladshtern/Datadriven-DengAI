@@ -90,8 +90,6 @@ def rstr(df, pred=None):
     return str
 
 details = rstr(features_train_df, 'total_cases')
-#display(details.sort_values(by='corr total_cases', ascending=False))
-details.to_csv('G:/DataScienceProject/Datadriven-DengAI/review1.csv', index=False)
 
 #Check total_cases distribution
 def QQ_plot(data, measure):
@@ -120,9 +118,6 @@ QQ_plot(features_train_df.total_cases, 'total_cases')
 #We use the numpy fuction log1p which applies log(1+x) to all elements of the column
 features_train_df.total_cases = np.log1p(features_train_df.total_cases)
 QQ_plot(features_train_df.total_cases, 'Log1P of total_cases')
-
-#Test Temp hypothesis-2
-#1.need to check acc &RMSE
 
 #NA
 naList = list(features_train_df)
@@ -255,22 +250,12 @@ for i, value in enumerate(newFeature):
     features_train_df[colName2] = features_train_df[value]**3
     features_test_df[colName2] = features_test_df[value]**3
 
-'''
-ScalerRobust to deal with outlayers when not using polynoms
-'''
 features_train_df.drop(['Unnamed: 0'],inplace=True,axis=1)
 features_test_df.drop(['Unnamed: 0'],inplace=True,axis=1)
 reorderCol = list(features_train_df)
 reorderList= list(features_train_df)[0:13] + list(features_train_df)[14:33] + reorderCol[13:14]
 features_train_df = features_train_df[reorderList]
 features_test_df = features_test_df[reorderList]
-
-'''
-features_train_df = pd.read_csv('G:/DataScienceProject/Datadriven-DengAI/features_train_df_1.csv')
-features_test_df = pd.read_csv('G:/DataScienceProject/Datadriven-DengAI/features_test_df_1.csv')
-features_train_df.to_csv('G:/DataScienceProject/Datadriven-DengAI/features_train_df_1.csv', index=False)
-features_test_df.to_csv('G:/DataScienceProject/Datadriven-DengAI/features_test_df_1.csv', index=False)
-'''
 
 # split data into train and test sets
 warnings.filterwarnings(action='ignore', category=DeprecationWarning)
